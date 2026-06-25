@@ -1,8 +1,8 @@
 import { NextFunction, Request, Response } from "express";
-import { AppDataSource } from "../config/data-source.js";
-import { User, UserRole } from "../models/User.entity.js";
-import { AppError } from "../utils/appError.js";
-import { sendSuccess } from "../utils/successResponse.js";
+import { AppDataSource } from "../config/data-source";
+import { User, UserRole } from "../models/User.entity";
+import { AppError } from "../utils/appError";
+import { sendSuccess } from "../utils/successResponse";
 import bcrypt from "bcryptjs";
 import jwt, { SignOptions } from "jsonwebtoken";
 
