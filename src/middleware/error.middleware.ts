@@ -14,7 +14,7 @@ export const globalErrorHandler = (
   if (process.env.NODE_ENV === "production") {
     res.status(statusCode).json({
       status: "error",
-      message: err.isOperational ? message : "Something went completely wrong!",
+      message: err.isOperational ? message : "Something went wrong!",
     });
   } else {
     
