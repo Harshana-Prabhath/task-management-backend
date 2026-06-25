@@ -1,8 +1,8 @@
 import { DataSource } from "typeorm";
 import "reflect-metadata";
 import dotenv from "dotenv";
-import { User } from "../models/User.entity.js";
-import { Task } from "../models/Task.entity.js";
+import { User } from "../models/User.entity";
+import { Task } from "../models/Task.entity";
 
 dotenv.config();
 

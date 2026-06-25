@@ -1,10 +1,11 @@
+import "reflect-metadata";
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-import { AppDataSource } from "./config/data-source.js";
-import authRoutes from "./routes/auth.route.js";
-import taskRoutes from "./routes/task.routes.js";
-import { globalErrorHandler } from "./middleware/error.middleware.js";
+import { AppDataSource } from "./config/data-source";
+import authRoutes from "./routes/auth.route";
+import taskRoutes from "./routes/task.routes";
+import { globalErrorHandler } from "./middleware/error.middleware";
 
 dotenv.config();
 

@@ -1,5 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany, CreateDateColumn, UpdateDateColumn } from "typeorm";
-import { Task } from "./Task.entity.js";
+import { Task } from "./Task.entity";
 
 export enum UserRole {
   ADMIN = "Admin",
@@ -11,7 +11,7 @@ export class User {
   @PrimaryGeneratedColumn("uuid")
   id!: string;
 
-  @Column({ unique: true })
+  @Column({ type: "varchar", unique: true })
   email!: string;
 
   @Column()

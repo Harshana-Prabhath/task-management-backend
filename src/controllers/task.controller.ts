@@ -1,9 +1,9 @@
 import { NextFunction, Request, Response } from "express";
-import { AppDataSource } from "../config/data-source.js";
-import { Task, TaskPriority, TaskStatus } from "../models/Task.entity.js";
-import { User, UserRole } from "../models/User.entity.js";
-import { AppError } from "../utils/appError.js";
-import { sendSuccess } from "../utils/successResponse.js";
+import { AppDataSource } from "../config/data-source";
+import { Task, TaskPriority, TaskStatus } from "../models/Task.entity";
+import { User, UserRole } from "../models/User.entity";
+import { AppError } from "../utils/appError";
+import { sendSuccess } from "../utils/successResponse";
 import { Like } from "typeorm";
 
 const taskRepository = AppDataSource.getRepository(Task);
