@@ -10,7 +10,7 @@ const userRepository = AppDataSource.getRepository(User);
 
 export const register = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   try {
-    const { email, password, role } = req.body;
+    const { email, password, role, name } = req.body;
 
    
     const existingUser = await userRepository.findOne({ where: { email } });
@@ -23,6 +23,7 @@ export const register = async (req: Request, res: Response, next: NextFunction):
 
    
     const newUser = userRepository.create({
+      name,
       email,
       password: hashedPassword,
       role: role || UserRole.USER, 
@@ -66,7 +67,10 @@ export const login = async (req: Request, res: Response, next: NextFunction): Pr
       res,
       {
         token,
-        user: { id: user.id, email: user.email, role: user.role },
+        user: { id: user.id,
+           name: user.name,
+           email: user.email, 
+           role: user.role },
       },
       "Login successful!"
     );
