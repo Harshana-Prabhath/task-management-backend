@@ -59,3 +59,4 @@ Compile the project and start the live reload server:
 ```bash
 npm run dev
 ```
+s
