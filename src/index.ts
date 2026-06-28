@@ -15,28 +15,29 @@ const PORT = process.env.PORT || 5000;
 
 const allowedOrigins = process.env.ALLOWED_ORIGINS
   ? process.env.ALLOWED_ORIGINS.split(",")
-  : ["http://localhost:5173", "http://localhost:3000"]; 
+  : ["http://localhost:5173", "http://localhost:3000"];
 
-app.use(cors(
-  {
-    origin: (origin, callback) => {
-      
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(null, false);
-      }
-    },
-    credentials: true, 
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-    optionsSuccessStatus: 200,
-  }
+app.use(cors({
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(null, false);
+    }
+  },
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+  optionsSuccessStatus: 200,
+}));
 
-));
 app.use(express.json());
 
 app.use(async (req, res, next) => {
+  if (req.method === "OPTIONS") {
+    return next();
+  }
+
   if (!AppDataSource.isInitialized) {
     try {
       await AppDataSource.initialize();
@@ -49,10 +50,9 @@ app.use(async (req, res, next) => {
   next();
 });
 
-
 app.use("/api/auth", authRoutes);
 app.use("/api/tasks", taskRoutes);
-app.use("/api/users", userRoutes)
+app.use("/api/users", userRoutes);
 
 app.use(globalErrorHandler);
 
@@ -66,6 +66,5 @@ if (process.env.NODE_ENV !== "production") {
     })
     .catch((error) => console.error("Local database initialization error: ", error));
 }
-
 
 export default app;
