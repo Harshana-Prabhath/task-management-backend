@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 import { AppDataSource } from "./config/data-source";
 import authRoutes from "./routes/auth.route";
 import taskRoutes from "./routes/task.routes";
+import userRoutes from "./routes/user.routes";
 import { globalErrorHandler } from "./middleware/error.middleware";
 
 dotenv.config();
@@ -18,6 +19,7 @@ app.use(express.json());
 
 app.use("/api/auth", authRoutes);
 app.use("/api/tasks", taskRoutes);
+app.use("/api/users", userRoutes)
 
 app.use(globalErrorHandler);
 

@@ -212,7 +212,7 @@ export const deleteTask = async (req: Request, res: Response, next: NextFunction
     }
 
     await taskRepository.remove(task);
-    return sendSuccess(res, null, "Task deleted permanently.");
+    return sendSuccess(res, null, "Task deleted sucessfully.");
   } catch (error) {
     next(error);
   }

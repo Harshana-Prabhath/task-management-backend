@@ -7,7 +7,8 @@ interface TokenPayload {
   role: UserRole;
 }
 
-export const authenticateJWT = (req: Request, res: Response, next: NextFunction): void => {
+
+export const protect = (req: Request, res: Response, next: NextFunction): void => {
   const authHeader = req.headers.authorization;
 
   if (!authHeader || !authHeader.startsWith("Bearer ")) {
@@ -26,11 +27,16 @@ export const authenticateJWT = (req: Request, res: Response, next: NextFunction)
   }
 };
 
-
-export const requireAdmin = (req: Request, res: Response, next: NextFunction): void => {
-  if (!req.user || req.user.role !== UserRole.ADMIN) {
-    res.status(403).json({ message: "Access forbidden. Admin privilege required." });
-    return;
-  }
-  next();
+export const restrictTo = (...allowedRoles: string[]) => {
+  return (req: Request, res: Response, next: NextFunction): void => {
+    if (!req.user || !allowedRoles.includes(req.user.role)) {
+      res.status(403).json({ message: "Access forbidden. You do not have permission to perform this action." });
+      return;
+    }
+    next();
+  };
 };
+
+export const authenticateJWT = protect;
+export const requireAdmin = restrictTo(UserRole.ADMIN);
+
